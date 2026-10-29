@@ -1,59 +1,27 @@
-# 🚀 Welcome to Project & Portfolio!
+# COS1 Project & Portfolio
 
-This repository will be used to keep track of research and development conducted in this class. Follow the instructions below to get started.
-cos
-### Getting Started
+This repository documents the development of a small C++ portfolio project while practicing Git, Visual Studio, documentation, and iterative delivery.
 
-**1.** Review the [About](./docs/01_about/README.md) README and all of the links it provides.
+## Current project
 
-**2.** Review the documentation and [Getting Started](./docs/02_getting_started/README.md) steps in this repository's docs folder.
+The first project in `dev/COS1-Console` is **COS1 Portfolio Tracker**, an interactive console app that turns project planning into a simple milestone board. It includes a dashboard, progress visualization, milestone creation, completion tracking, input validation, and a resettable starter plan.
 
-**3.** Attend the first Live Lecture to see a live setup demo. If you are unable to attend, make sure to watch the archive.
+The application is intentionally lightweight and uses only the C++ standard library. That keeps the code approachable while giving the project a strong foundation for future features such as file persistence, reports, testing, and a graphical interface.
 
-### Next Steps...
+## Build the project
 
-After completing the above steps, feel free to begin updating this readme where indicated below. Remember to update this document each week to receive proper credit for the weekly Milestone assignment.
+1. Open `dev/COS1-Project.sln` in Visual Studio.
+2. Select the **Debug** configuration and **x64** platform.
+3. Build with **Build > Build Solution**.
+4. Run with **Debug > Start Without Debugging**.
 
-<br>
+See [`dev/COS1-Console/README.md`](./dev/COS1-Console/README.md) for the feature list and project-specific instructions.
 
-> ❗️ &nbsp; Now that you have read to this point, go ahead and delete this sentence and everything above it.
-
-<br>
-
-# Project & Portfolio 1
-
-### Student First & Last Name
-
-Hello my name is [enter name]. I am a student from [where are you from?]. The purpose of this repository is to practice development using version control. This work will help me begin to build a portfolio of skills and accomplishment that can be shared in the future.
-
-<br>
-
-## 📢 &nbsp; Weekly Stand Up
-
-Each week I will summarize my milestone activity and progress by writing a stand-up. A stand-up is meant to be a succinct update on how things are going. Use these prompts as a guide on what to write about:
-
-⚙️ Overview - What I worked on this past week
-<br>
-🌵 Challenges - What problems did I have & how I'm addressing them
-<br>
-🏆 Accomplishments - What is something I "leveled up" on this week
-<br>
-🔮 Next Steps - What I plan to prioritize and do next
-
-<br>
+## Weekly stand-up
 
 ### Week 1
 
-Replace this paragraph with your stand up for this week. Use the prompts above to summarize your most recent milestone activity and work.
-
-### Week 2
-
-My next stand up will go here...
-
-### Week 3
-
-Stay tuned, this stand up is coming soon...
-
-### Week 4
-
-My final stand up...
+- **Overview:** Set up the repository, created the Visual Studio solution, and built the first interactive C++ feature.
+- **Challenges:** Started with a blank console project and needed to create a structure that would be easy to extend without adding unnecessary dependencies.
+- **Accomplishments:** Added a dashboard, progress bar, milestone board, validated input, and clear project documentation.
+- **Next steps:** Add file persistence and automated tests while keeping the project simple and portfolio-ready.
