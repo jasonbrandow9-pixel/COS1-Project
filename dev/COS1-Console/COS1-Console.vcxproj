@@ -74,6 +74,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="COS1-Console.cpp" />
+    <ClCompile Include="Person.cpp" />
+    <ClCompile Include="VirusProfile.cpp" />
+    <ClCompile Include="Simulation.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Person.h" />
+    <ClInclude Include="VirusProfile.h" />
+    <ClInclude Include="Simulation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
