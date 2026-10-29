@@ -454,3 +454,6 @@ FodyWeavers.xsd
 *.vsidx
 *.vs
 .DS_Store
+
+# Visual Studio workspace cache
+.vs/
