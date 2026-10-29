@@ -12,6 +12,13 @@ Virus Spread Lab is a safe, educational C++ console simulation that visualizes h
 - Explanation screen describing the model assumptions
 - Validated menus and standard-library-only C++
 
+## Class Structure
+
+- **Person** – individual health state and infection age
+- **VirusProfile** – configurable transmission parameters
+- **Simulation** – grid, daily steps, reporting, and summary statistics
+- Main menu loop with input validation
+
 The profiles use intentionally simplified relative settings. They should not be interpreted as real-world measurements for a named disease.
 
 ## Build and run
