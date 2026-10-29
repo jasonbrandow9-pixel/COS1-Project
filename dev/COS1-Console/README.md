@@ -1,15 +1,18 @@
-# COS1 Portfolio Tracker
+# Virus Spread Lab
 
-COS1 Portfolio Tracker is a small interactive C++ console application for planning and reviewing project milestones. It is intentionally built with the standard library so the project stays easy to build, inspect, and extend in Visual Studio.
+Virus Spread Lab is a safe, educational C++ console simulation that visualizes how transmission chance, contact frequency, and recovery time can change the shape of an outbreak. It is a classroom model, not medical advice or a clinical forecast.
 
 ## Features
 
-- Dashboard with milestone counts and a visual progress bar
-- Milestone board with goals and completion status
-- Add custom milestones during a session
-- Mark open milestones complete with validated menu input
-- Reset the demo plan to its starter state
-- Friendly terminal formatting and clear feedback for invalid input
+- Grid visualization of susceptible, infected, and recovered people
+- Daily outbreak report with susceptible, infected, recovered, and new-infection counts
+- Spread-factor metric to show outbreak momentum over time
+- Illustrative low-, moderate-, and high-transmission profiles
+- Profile comparison using the same population size and starting conditions
+- Explanation screen describing the model assumptions
+- Validated menus and standard-library-only C++
+
+The profiles use intentionally simplified relative settings. They should not be interpreted as real-world measurements for a named disease.
 
 ## Build and run
 
@@ -18,4 +21,4 @@ COS1 Portfolio Tracker is a small interactive C++ console application for planni
 3. Choose **Build > Build Solution**.
 4. Run with **Debug > Start Without Debugging**.
 
-The project uses only standard C++ headers and requires no third-party libraries.
+Choose **Run an outbreak simulation** for a live grid, **Compare illustrative profiles** for a summary table, or **Learn how the model works** for the assumptions behind the simulation.
