@@ -1,30 +1,8 @@
-# 🚀 Welcome to Project & Portfolio!
-
-This repository will be used to keep track of research and development conducted in this class. Follow the instructions below to get started.
-cos
-### Getting Started
-
-**1.** Review the [About](./docs/01_about/README.md) README and all of the links it provides.
-
-**2.** Review the documentation and [Getting Started](./docs/02_getting_started/README.md) steps in this repository's docs folder.
-
-**3.** Attend the first Live Lecture to see a live setup demo. If you are unable to attend, make sure to watch the archive.
-
-### Next Steps...
-
-After completing the above steps, feel free to begin updating this readme where indicated below. Remember to update this document each week to receive proper credit for the weekly Milestone assignment.
-
-<br>
-
-> ❗️ &nbsp; Now that you have read to this point, go ahead and delete this sentence and everything above it.
-
-<br>
-
 # Project & Portfolio 1
 
-### Student First & Last Name
+### Jason Brandow
 
-Hello my name is [enter name]. I am a student from [where are you from?]. The purpose of this repository is to practice development using version control. This work will help me begin to build a portfolio of skills and accomplishment that can be shared in the future.
+Hey, my name is Jason Brandow. I'm a student working on this for class. Main reason for this repo is to get better at using version control and start building some kind of portfolio with the stuff I do this term.
 
 <br>
 
@@ -44,7 +22,11 @@ Each week I will summarize my milestone activity and progress by writing a stand
 
 ### Week 1
 
-Replace this paragraph with your stand up for this week. Use the prompts above to summarize your most recent milestone activity and work.
+Got the repo created and cloned down to my computer this week. Spent a good bit of time looking through the docs so I know what the folders are for. Made a couple test commits just to make sure push was working.
+
+Biggest issue was just getting used to the folder structure and not editing the wrong files. After the first couple tries it started making more sense.
+
+Feel like I finally get the basic clone / commit / push loop now. Next up I'm gonna try putting some actual code in the dev folder and keep adding to this README every week.
 
 ### Week 2
 
