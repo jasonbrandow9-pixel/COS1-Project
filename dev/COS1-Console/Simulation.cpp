@@ -146,7 +146,11 @@ SimulationSummary Simulation::run(const VirusProfile& profile, int days, bool sh
         m_people = std::move(next);
         const int infectedAfter = static_cast<int>(countState(HealthState::Infected));
         const int recovered = static_cast<int>(countState(HealthState::Recovered));
-        summary.peakInfected = std::max(summary.peakInfected, infectedAfter);
+        if (infectedAfter > summary.peakInfected)
+        {
+            summary.peakInfected = infectedAfter;
+            summary.peakDay = day;
+        }
         summary.daysRun = day;
 
         if (showDailyReport)
@@ -169,5 +173,30 @@ SimulationSummary Simulation::run(const VirusProfile& profile, int days, bool sh
 
     summary.finalInfected = static_cast<int>(countState(HealthState::Infected));
     summary.finalRecovered = static_cast<int>(countState(HealthState::Recovered));
+    // Anyone who is currently infected or recovered was infected at some point
+    summary.everInfected = summary.finalInfected + summary.finalRecovered;
+
+    if (showDailyReport)
+    {
+        const double percentHit = summary.totalPopulation == 0 ? 0.0 :
+            100.0 * summary.everInfected / summary.totalPopulation;
+
+        std::cout << "\n" << kYellow << "FINAL SUMMARY" << kReset << "\n";
+        std::cout << "  Days simulated:     " << summary.daysRun << "\n";
+        std::cout << "  Peak infected:      " << summary.peakInfected
+                  << " (day " << summary.peakDay << ")\n";
+        std::cout << "  Final infected:     " << summary.finalInfected << "\n";
+        std::cout << "  Final recovered:    " << summary.finalRecovered << "\n";
+        std::cout << "  Ever infected:      " << summary.everInfected
+                  << " (" << std::fixed << std::setprecision(1) << percentHit << "% of population)\n";
+
+        if (percentHit < 15.0)
+            std::cout << "  Reading:            Outbreak stayed mostly contained.\n";
+        else if (percentHit < 45.0)
+            std::cout << "  Reading:            Moderate spread across the population.\n";
+        else
+            std::cout << "  Reading:            High transmission — large portion affected.\n";
+    }
+
     return summary;
 }
