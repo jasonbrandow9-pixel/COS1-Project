@@ -54,14 +54,15 @@ namespace
         int choice = 0;
         while (true)
         {
-            std::cout << "Choose an option (" << minimum << "-" << maximum << "): ";
+            std::cout << "Enter a number between " << minimum << " and " << maximum << ": ";
             if (std::cin >> choice && choice >= minimum && choice <= maximum)
             {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 return choice;
             }
 
-            std::cout << kRed << "Please enter a valid number.\n" << kReset;
+            std::cout << kRed << "That is not a valid choice. Please enter a whole number from "
+                      << minimum << " to " << maximum << ".\n" << kReset;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
