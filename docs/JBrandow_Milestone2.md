@@ -1,87 +1,45 @@
 # Milestone 2 Documentation
-**Student:** J. Brandow  
-**Project:** Virus Spread Lab  
-**Week:** 2
+Jason Brandow  
+Virus Spread Lab – Week 2
 
----
+## What I worked on
 
-## Overview of Changes This Week
+This week I focused on making the simulation easier to use and giving better feedback at the end of a run. I kept the same three classes (Person, VirusProfile, Simulation) and just added to them.
 
-This week focused on expanding the existing Virus Spread Lab foundation, improving usability, and making the simulation results easier to understand.
+## Features that got added
 
-The core class structure (Person, VirusProfile, Simulation) stayed intact. Work was done by extending those classes and improving the menu flow rather than rewriting everything.
+**Better final summary**  
+After a run finishes it now shows:
+- how many days actually ran
+- the highest number of infected people and which day that happened
+- how many people were ever infected (and the percent of the whole grid)
+- a short note saying whether the outbreak looked contained, moderate, or high spread
 
----
+**Run again option**  
+When a simulation ends you can choose to start another one right away instead of going all the way back to the main menu.
 
-## Features Added
+**Clearer menu errors**  
+The prompts tell you the allowed numbers up front. If you type something wrong it says exactly what it wants instead of a vague “invalid” message.
 
-### 1. Richer Final Summary
-After a simulation finishes, the program now shows:
-- Days simulated
-- Peak number of infected people and the day that peak occurred
-- Final infected and recovered counts
-- Total people who were ever infected (with percentage of the population)
-- A short plain-English reading of the outbreak (contained / moderate / high transmission)
+**Planning worksheet**  
+I filled out the planning doc and put it in the docs folder.
 
-### 2. Replay Option
-After each run the user can choose to start another simulation immediately without returning to the main menu. This makes it easier to try different profiles and settings quickly.
+## Files that changed
 
-### 3. Clearer Input Validation (Usability)
-All numeric prompts now:
-- State the allowed range up front
-- Give a specific error message that tells the user exactly what is expected when the input is wrong
+- Simulation.h – added peakDay and everInfected to the summary
+- Simulation.cpp – tracks the peak day and prints the new summary
+- COS1-Console.cpp – better validation text and the replay loop
+- docs/JBrandow-Milestone2-Planning.md – planning worksheet
+- docs/JBrandow_Milestone2.md – this file
 
-### 4. Planning Document
-A full Milestone 2 planning worksheet was added under `/docs` that lists intended features, class changes, usability goals, and the development order for the week.
+## Why these changes
 
----
+The summary was pretty thin before. Knowing the peak day and how many people ever got hit makes it easier to compare the different profiles. The run-again option just saves time when I’m testing. The clearer error messages were the main usability thing for this week.
 
-## Code Structure Updates
+## Testing
 
-| File | Change |
-|------|--------|
-| `Simulation.h` | Added `peakDay` and `everInfected` to `SimulationSummary` |
-| `Simulation.cpp` | Tracks the day of the peak, counts ever-infected, prints the new final summary |
-| `COS1-Console.cpp` | Improved validation messages, added replay loop after interactive runs |
-| `docs/JBrandow-Milestone2-Planning.md` | New planning worksheet |
-| `docs/JBrandow_Milestone2.md` | This documentation file |
+I compiled everything with g++ while I was working on it. Tried bad input (letters, numbers way outside the range) to make sure the new messages showed up. Also ran a few short simulations to check that the peak day and percent numbers looked right.
 
-No new classes were required this week. Existing classes were extended with clear responsibilities.
+## What’s next
 
----
-
-## Usability Improvements
-
-1. Prompts always show the valid number range.
-2. Invalid input produces a clear, specific message instead of a generic error.
-3. Users can re-run simulations immediately after finishing one.
-4. The final summary is written in plain language so someone new to the program can understand the outcome.
-
----
-
-## What Changed and Why
-
-- **Peak day + ever-infected tracking** – makes the results more useful for comparing different virus profiles.
-- **Replay loop** – reduces friction when testing multiple settings.
-- **Better validation messages** – required usability improvement; helps anyone using the program for the first time.
-- **Documentation** – required for the milestone and helps keep a record of decisions.
-
----
-
-## Testing Notes
-
-- All source files compile cleanly with g++ (C++17).
-- Menu ranges and validation were exercised with out-of-range and non-numeric input during development.
-- Summary values were checked against known short runs (small day counts and low starting infections).
-
----
-
-## Next Steps (Week 3+)
-
-Possible directions still open:
-- Custom virus settings for a single run (override contacts / transmission / recovery)
-- Simple quarantine or intervention toggle
-- Saving and comparing multiple result snapshots
-- Additional statistics or history across runs
-
-These will be evaluated after feedback from the Week 2 stand-up and peer responses.
+Still thinking about letting the user tweak the virus settings for a single run, and maybe a simple quarantine option. I’ll decide after I get feedback from the stand-up this week.
