@@ -1,92 +1,107 @@
-# Version Control & Markdown Documentation
+# Version Control & Markdown
 
-**Course:** COS1 – Project & Portfolio 1  
-**Student:** Jason Brandow  
-**Date:** November 1, 2026
+## COS119-O Project & Portfolio I
 
----
+- **Jason Brandow**
+- **November 1, 2026**
 
-## Why Version Control Matters
+This paper addresses some of the topic matter covered in research and activity this week. Be sure to include reference links below to the research and information you used to complete this assignment.
 
-Version control keeps a history of every change I make to the project.  
-If something breaks, I can go back to a working version.  
-It also lets me work in small steps instead of trying to finish everything in one big save.
+## Topic: Terminal
 
-For this class I use Git and GitHub.  
-All real work happens on the `dev` branch.  
-When a set of changes is ready, I open a pull request into `main`.
+Professional developers use Terminal daily. It's essential to understand some fundamental commands to use the application.
 
----
+Update the information below to demonstrate your knowledge on this topic.
 
-## Basic Git Commands I Use
+**1. Using Terminal, there are essential commands to know.**
 
-| Command | What it does |
-|---------|--------------|
-| `git status` | Shows what files changed |
-| `git add .` | Stages all current changes |
-| `git commit -m "message"` | Saves a snapshot with a short note |
-| `git push` | Uploads commits to GitHub |
-| `git pull` | Downloads the latest changes |
-| `git checkout -b branchname` | Creates and switches to a new branch |
-| `git log --oneline` | Shows a short list of recent commits |
+List the correct Terminal commands to do the actions listed below. Replace **CMD** with the correct command sequence. You can keep or enhance the brief description.
 
-I try to commit after every meaningful change instead of waiting until the end of the day.
+**The last bullet provides an example**.
 
----
+- `clear`: Clear the Screen
+- `pwd`: Print the "Working Directory"
+- `ls`: List files and folders
+- `ls -a`: List files and folders, including invisible files
+- `ls -lh`: List all files and folders, in human readable form
+- `cd`: Change directory
+- `cd /`: Change directory, go to root directory
+- `cd ~`: Change directory and go to user home directory
+- `cd ..`: Change directory, go up one folder level
+- `cd ../..`: Change directory, go up two folder levels
+- `cd ~/Desktop`: Change directory to my desktop!
 
-## Markdown Basics
+**2. Using Terminal...**
 
-Markdown is a simple way to format text so GitHub can display it cleanly.
+**Folder Drop:** Try typing "cd" followed by a space, and then drag a folder into terminal and press return. Test this out and describe your results below.
 
-Common things I use:
+When I typed `cd` and a space, then dragged a folder into Terminal, it automatically filled in the full path to that folder. After I pressed return, Terminal changed into that directory. It was a fast way to move into a folder without typing the whole path by hand.
 
-- `#` for main headings
-- `##` and `###` for smaller headings
-- `**bold**` and `*italic*`
-- `-` or `*` for bullet lists
-- `` `code` `` for inline code
-- Triple backticks for code blocks
-- Links: `[text](url)`
+## Topic: Version Control & Git
 
-I write most documentation in Markdown so it stays readable both in the editor and on GitHub.
+Version control, also known as revision control, records changes to a file or set of files over time so that you can recall specific versions later. In this class, we are learning Git. Update the information below where indicated.
 
----
+**1. There are three types of version control.**
 
-## How I Organize This Repository
+1. **Local Version Control** – keeps change history on a single computer. Simple, but only works on that machine.
+2. **Centralized Version Control** – one central server holds the full history. Everyone checks files in and out from that server (example: older systems like SVN).
+3. **Distributed Version Control** – every developer has a full copy of the repository history. Git is this type. You can work offline and later sync with a remote like GitHub.
 
-- `dev/` – all C++ source code and Visual Studio project files
-- `docs/` – course materials, changelogs, validation notes, and this document
-- `images/` – screenshots of the project board, repo, and access settings
-- Root `README.md` – project overview and weekly stand-ups
+**2. Using Terminal, there are also essential Git commands to know.**
 
-This layout makes it easier to find code versus notes.
+List the correct Git commands to do the actions listed below in Terminal. Replace CMD with the correct command and keep or enhance the brief description.
 
----
+- `git clone`: Clone a repository
+- `git config --global user.name "Your Name"`: Set-up a global user name
+- `git config --global user.email "you@example.com"`: Set-up a global email address (to match my GitHub account email)
+- `git status`: Shows the current state of your directory and staging area
+- `git add .` or `git add filename`: Add modified files to the next commit
+- `git commit -m "message"`: Make a commit with a new message
+- `git log` or `git log --oneline`: Show my commit history
+- `git help` or `git --help`: Show Git's help screen
 
-## Commit Habit
+**3. Connecting to GitHub using Terminal.**
+HTTPS is the the correct way to connect to GitHub in this course. Describe how you connect to GitHub from Terminal using this protocol. What steps do you take?
 
-I aim for small, clear commits that describe what actually changed.  
-Examples of good messages:
+1. Copy the HTTPS clone URL from the GitHub repository page.
+2. In Terminal run: `git clone https://github.com/username/repo-name.git`
+3. When Git asks for credentials, use my GitHub username and a personal access token (or password if still accepted).
+4. After the first successful login, macOS Keychain can store the credentials so I don’t have to type them every time.
+5. For day-to-day work I use `git pull` to download updates and `git push` to upload my commits.
 
-- Add Person class with health states
-- Wire up Simulation grid and daily report
-- Fix input validation on menu choices
-- Update README with Week 2 stand-up
+**4. Using .gitignore and Why it's Important**  
+Most repositories contain a .gitignore file.
 
-Bad messages (I try to avoid):
+- What is the purpose of this file?  
+  The `.gitignore` file tells Git which files and folders to skip so they are never added to the repository. This keeps the repo clean and avoids committing temporary or machine-specific files.
 
-- update
-- stuff
-- final version
+- What is the "**.DS_Store**" file and why would you want to ignore it?  
+  `.DS_Store` is a hidden macOS file that stores folder view settings. It is created automatically by Finder and is different on every computer, so it should be ignored so it doesn’t clutter the repo or cause unnecessary merge conflicts.
 
----
+- What other file or folder would you want to add to a .gitignore file and why?  
+  I would ignore the Visual Studio build folders such as `x64/`, `Debug/`, and `Release/`, and also `*.user` files. Those are generated when the project is built and are specific to each machine, so they don’t belong in the shared repository.
 
-## Resources I Used
+<br>
 
-- [GitHub Markdown Guide](https://guides.github.com/features/mastering-markdown/)
-- Course Getting Started docs inside this repository
-- Visual Studio Git tools and the command line
+# Reference Links
 
----
+**Research Summary:** The class materials and the official Git documentation were the most helpful this week. The GitHub docs on cloning and authentication made the HTTPS setup clearer, and the simple Terminal command list helped me practice without getting lost.
 
-*This document will grow as the project continues.*
+**Terminal Commands**  
+https://ss64.com/osx/  
+https://github.com/0nn0/terminal-mac-cheatsheet
+
+**Three Types of Version Control**  
+https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control
+
+**Git Commands**  
+https://git-scm.com/docs  
+https://education.github.com/git-cheat-sheet-education.pdf
+
+**Connecting to GitHub using Terminal**  
+https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories  
+https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+
+**Using .gitignore and Why it's Important**  
+https://git-scm.com/docs/gitignore  
+https://github.com/github/gitignore
