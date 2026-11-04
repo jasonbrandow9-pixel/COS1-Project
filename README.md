@@ -1,34 +1,35 @@
 # COS1 Project & Portfolio
 
-This repository documents the development of a small C++ portfolio project while practicing Git, Visual Studio, documentation, and iterative delivery.
+Repo for my Project & Portfolio 1 class work. Using it to practice Git, Visual Studio, and building a small C++ project over the term.
 
-## Current project: Virus Spread Lab
+## Virus Spread Lab
 
-The first project in `dev/COS1-Console` is **Virus Spread Lab**, an interactive educational simulation of transmission and recovery on a grid. It helps visualize how relative contact frequency, transmission chance, and recovery time can affect outbreak curves.
+The main project is in `dev/COS1-Console`. It's a console sim that shows how an infection can spread across a small grid. You pick a profile, set some starting cases, run it for a number of days, and watch the daily numbers and the grid.
 
-The program includes a live grid, daily statistics, a spread-factor metric, illustrative profile comparisons, and an explanation of the model assumptions. It uses only the C++ standard library and clearly separates classroom simulation from real-world medical data.
+It's only meant as a classroom model. Nothing in it is medical advice or a real prediction.
 
-## Build the project
+## How to build
 
-1. Open `dev/COS1-Project.sln` in Visual Studio.
-2. Select the **Debug** configuration and **x64** platform.
-3. Build with **Build > Build Solution**.
-4. Run with **Debug > Start Without Debugging**.
+1. Open `dev/COS1-Project.sln` in Visual Studio
+2. Debug + x64
+3. Build Solution
+4. Start Without Debugging
 
-See [`dev/COS1-Console/README.md`](./dev/COS1-Console/README.md) for the feature list and project-specific instructions.
+More notes are in `dev/COS1-Console/README.md`.
 
-## Weekly stand-up
+## Weekly Stand-Up
 
 ### Week 1
-
-- **Overview:** Set up the repository, created the Visual Studio solution, and built the first interactive C++ feature.
-- **Challenges:** Started with a blank console project and needed to create a structure that would be easy to extend without adding unnecessary dependencies.
-- **Accomplishments:** Added the first working console application and documented the build process.
-- **Next steps:** Turned the project into a safe virus-spread simulation with an interactive grid, daily metrics, and profile comparisons.
+- **Overview:** Got the repo set up, made the Visual Studio solution, and got the first version of the sim running with Person, VirusProfile, and Simulation classes.
+- **Challenges:** Figuring out a clean way to split the code so it wouldn't turn into one giant file.
+- **Accomplishments:** Working menu, live grid, daily report, and basic profile compare.
+- **Next steps:** Add more useful output and clean up the menu prompts.
 
 ### Week 2
+- **Overview:** Worked on the final summary (peak day, how many people ever got infected, short reading of the result), added a run-again option, and made the input errors clearer. Also finished the planning worksheet and the Milestone 2 write-up.
+- **Challenges:** Trying to keep the wording simple so it doesn't sound like real medical data. Also making sure each small change still compiled.
+- **Accomplishments:** Menu is easier to use, the end of a run actually tells you something useful, and the commits show the project moving forward step by step.
+- **Next steps:** Looking at custom settings for one run and maybe a basic quarantine option after I get feedback from the stand-up.
 
-- **Overview:** Built the Virus Spread Lab simulation and added illustrative transmission profiles.
-- **Challenges:** Needed to make the model understandable without presenting simplified values as medical facts.
-- **Accomplishments:** Added susceptible/infected/recovered states, recovery timing, spread-factor reporting, comparison mode, and an assumptions screen.
-- **Next steps:** Add repeatable scenario seeds, automated checks for the simulation rules, and exportable results.
+Student: Jason Brandow  
+Instructor: kari-asphodel (has access to the repo and project board)

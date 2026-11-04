@@ -54,14 +54,15 @@ namespace
         int choice = 0;
         while (true)
         {
-            std::cout << "Choose an option (" << minimum << "-" << maximum << "): ";
+            std::cout << "Enter a number between " << minimum << " and " << maximum << ": ";
             if (std::cin >> choice && choice >= minimum && choice <= maximum)
             {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 return choice;
             }
 
-            std::cout << kRed << "Please enter a valid number.\n" << kReset;
+            std::cout << kRed << "That is not a valid choice. Please enter a whole number from "
+                      << minimum << " to " << maximum << ".\n" << kReset;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
@@ -79,22 +80,30 @@ namespace
 
     void runInteractiveSimulation(const std::vector<VirusProfile>& profiles)
     {
-        std::cout << "\n" << kYellow << "CHOOSE AN ILLUSTRATIVE PROFILE" << kReset << "\n";
-        for (std::size_t i = 0; i < profiles.size(); ++i)
+        bool playAgain = true;
+        while (playAgain)
         {
-            printProfile(profiles[i], static_cast<int>(i + 1));
+            std::cout << "\n" << kYellow << "CHOOSE AN ILLUSTRATIVE PROFILE" << kReset << "\n";
+            for (std::size_t i = 0; i < profiles.size(); ++i)
+            {
+                printProfile(profiles[i], static_cast<int>(i + 1));
+            }
+
+            const int profileChoice = readMenuChoice(1, static_cast<int>(profiles.size()));
+            std::cout << "\nHow many days should the model run?\n";
+            const int days = readMenuChoice(1, 60);
+            std::cout << "\nHow many initial infected people?\n";
+            const int initial = readMenuChoice(1, 10);
+
+            Simulation sim;
+            sim.reset(initial, std::random_device{}());
+            sim.run(profiles[profileChoice - 1], days, true);
+
+            std::cout << "\nRun another simulation with different settings?\n";
+            std::cout << "  1. Yes, run again\n";
+            std::cout << "  2. No, return to main menu\n";
+            playAgain = (readMenuChoice(1, 2) == 1);
         }
-
-        const int profileChoice = readMenuChoice(1, static_cast<int>(profiles.size()));
-        std::cout << "\nHow many days should the model run?\n";
-        const int days = readMenuChoice(1, 60);
-        std::cout << "\nHow many initial infected people?\n";
-        const int initial = readMenuChoice(1, 10);
-
-        Simulation sim;
-        sim.reset(initial, std::random_device{}());
-        sim.run(profiles[profileChoice - 1], days, true);
-        pauseForUser();
     }
 
     void compareProfiles(const std::vector<VirusProfile>& profiles)
