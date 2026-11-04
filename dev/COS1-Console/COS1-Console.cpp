@@ -2,6 +2,7 @@
 #include "Simulation.h"
 #include "VirusProfile.h"
 
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <limits>
@@ -96,6 +97,27 @@ namespace
                   << " | Recovery: " << profile.getRecoveryDays() << " days\n";
     }
 
+    void saveResults(const SimulationSummary& summary, const VirusProfile& profile, unsigned int seed)
+    {
+        std::ofstream file("outbreak_report.txt");
+        if (!file)
+        {
+            std::cout << kRed << "Could not create outbreak_report.txt\n" << kReset;
+            return;
+        }
+
+        file << "Virus Spread Lab - Outbreak Report\n";
+        file << "Profile: " << profile.getName() << "\n";
+        file << "Seed: " << seed << "\n";
+        file << "Days run: " << summary.daysRun << "\n";
+        file << "Peak infected: " << summary.peakInfected << "\n";
+        file << "Final infected: " << summary.finalInfected << "\n";
+        file << "Final recovered: " << summary.finalRecovered << "\n";
+        file << "Total population: " << summary.totalPopulation << "\n";
+
+        std::cout << "Saved results to outbreak_report.txt\n";
+    }
+
     void runInteractiveSimulation(const std::vector<VirusProfile>& profiles)
     {
         std::cout << "\n" << kYellow << "CHOOSE AN ILLUSTRATIVE PROFILE" << kReset << "\n";
@@ -124,7 +146,14 @@ namespace
 
         Simulation sim;
         sim.reset(initial, seed);
-        sim.run(profiles[profileChoice - 1], days, true);
+        const SimulationSummary summary = sim.run(profiles[profileChoice - 1], days, true);
+
+        std::cout << "\nSave results to file? ";
+        if (readYesNo())
+        {
+            saveResults(summary, profiles[profileChoice - 1], seed);
+        }
+
         pauseForUser();
     }
 
