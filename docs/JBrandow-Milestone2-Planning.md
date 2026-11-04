@@ -8,191 +8,126 @@
 
 ## 1. Current Project Overview
 
-Virus Spread Lab is an interactive C++ console simulation that visualizes how relative contact frequency, transmission chance, and recovery time affect an outbreak on a fixed grid. Each cell is a `Person` who can be susceptible (`.`), infected (`#`), or recovered (`+`).
+Virus Spread Lab is my C++ console program that shows how a virus can spread on a grid. Each spot is a person who can be susceptible, infected, or recovered. Right now it has three example profiles, a live grid that updates, daily numbers, a spread factor, a comparison mode, and a screen that explains the model.
 
-**What already works:**
-- 30×14 grid (420 people)
-- Three illustrative profiles (Common-cold style, Seasonal-flu style, High-transmission style)
-- Live grid that updates every 5 days or when the outbreak ends
-- Daily report with susceptible, infected, recovered, new infections, and spread factor
-- Profile comparison mode that runs all three profiles with the same starting conditions
-- Explanation screen describing the model assumptions
-- Menu with validated integer input
-- `Simulation::reset` already accepts a seed
+What I already have working:
+- 30 by 14 grid (420 people)
+- Three profiles (common-cold style, seasonal-flu style, high-transmission style)
+- Grid view and daily report
+- Profile comparison
+- Menu that checks input so it doesn’t crash
+- Simulation::reset already takes a seed
 
-**Current class responsibilities:**
-- `Person` – health state + infection age, methods to infect/recover/advance
-- `VirusProfile` – name, description, contactsPerDay, transmissionChance, recoveryDays
-- `Simulation` – owns the vector of people, random engine, grid printing, daily step logic, summary stats
-- Main file – menu loop, profile creation, user prompts, color output
+Classes I have:
+- Person – keeps track of if someone is sick and how long
+- VirusProfile – holds the settings for contacts, chance, and recovery days
+- Simulation – does the grid, the daily steps, and the reports
+- Main file – menu and user prompts
 
 ---
 
 ## 2. Inspiration & Research
 
-I looked at simple agent-based SIR models and other educational console simulations. Common patterns that work well for this kind of project:
+I looked at simple SIR models and other console simulations people have made for class. A lot of them use a grid with clear symbols, random contacts, and preset scenarios so you can compare without typing a bunch of numbers every time. Daily summary numbers also help so you don’t have to stare at the grid the whole time.
 
-- Grid or agent list with clear visual states
-- Random neighbor contacts instead of a full contact network (keeps the code simple)
-- Preset scenarios so users can compare without typing every parameter
-- Daily summary numbers so the outbreak curve is easy to see
-- Explicit note that the numbers are illustrative, not real medical data
-
-I also checked how other student console projects handle long runs and file output so I don’t make the console unreadable or write files in the wrong place when launching from Visual Studio.
+Things that seemed to work well:
+- Different symbols for each state
+- Preset profiles instead of making the user set everything
+- A note that the numbers are just for the classroom and not real medical data
 
 ---
 
-## 3. Planned Features (Detailed)
+## 3. Planned Features
 
-### Feature 1: Repeatable Scenario Seeds
-**Goal:** Same seed + same profile + same starting infected = identical outbreak every time.
+### Feature 1: Repeatable Seeds
+I want the user to be able to type in a seed number so the same settings give the same outbreak every time. That will make it easier to test and to show the same run twice if I need to.
 
-**User flow:**
-1. User chooses “Run an outbreak simulation”
-2. Chooses a profile
-3. New prompt: “Use a specific seed? (y/n)”
-4. If yes → read an integer (validated)
-5. If no → use `std::random_device` as it does now
-6. Pass the seed into `sim.reset(initial, seed)`
+Flow:
+1. User picks a profile
+2. Ask if they want to use a specific seed
+3. If yes, read a number and use it
+4. If no, keep doing what it does now with random
+5. Pass that seed into reset
 
-**Why it matters:** Makes testing easier, lets me demo the same outbreak twice in the progress video, and gives users a way to reproduce interesting results.
+### Feature 2: Save Results to a File
+After a run finishes, ask if they want to save a text file with the summary. The file would have the profile name, the seed, peak infected, and the final numbers.
 
-**Implementation notes:**
-- `Simulation::reset` already takes the seed — no class change required
-- Add a small helper in the main file to read yes/no and an integer seed
-- Store the seed used so it can be printed in the summary and written to the export file
+### Feature 3: Easier to Use
+- Add a quick run option that just uses some defaults so I don’t have to answer every question every time
+- Maybe ask for confirmation if the run is going to be long
+- Make the comparison table a little wider so the names fit better
 
-### Feature 2: Exportable Results
-**Goal:** After a run, optionally save a plain-text report.
-
-**User flow:**
-1. Simulation finishes and prints the final summary
-2. New prompt: “Save results to file? (y/n)”
-3. If yes → write `outbreak_report.txt` (or a name that includes the profile and seed)
-4. File contains:
-   - Profile name and parameters
-   - Seed used
-   - Days run, peak infected, final infected, final recovered
-   - Optional: day-by-day numbers if I decide to store them
-
-**Implementation notes:**
-- Use `<fstream>` to write the file
-- Write relative to the current working directory (Visual Studio usually sets this to the project folder)
-- Keep the report short so it is easy to open and read
-- Print a confirmation message with the filename after writing
-
-### Feature 3: Improved Usability
-**Goal:** Reduce friction for repeated runs.
-
-- Add a “Quick run” menu option that uses defaults (profile 2, 30 days, 3 initial infected, random seed)
-- Before a long run (>30 days), show a one-line confirmation
-- After any simulation, offer “Run again with same settings?”
-- Widen the comparison table slightly so profile names do not wrap
-
-### Feature 4: Basic Sanity Checks (stretch)
-**Goal:** Catch simple logic errors early.
-
-- Small function that runs a 1-day simulation and checks that population count never changes
-- Another check that an infected person recovers on the exact day given by the profile
-- Can be called from a hidden menu option (e.g., choice 9) or at the start of a debug build
+### Feature 4: Simple Checks (if I have time)
+Small tests to make sure the population count stays the same and that people recover on the right day. Could hide it behind a menu option I only use while testing.
 
 ---
 
-## 4. System Behavior & Detailed Program Flow
+## 4. How the Program Will Work
 
-**Updated main menu:**
-```
-1. Run an outbreak simulation
-2. Quick run (defaults)
-3. Compare illustrative profiles
-4. Learn how the model works
+Main menu will look something like:
+1. Run a simulation
+2. Quick run
+3. Compare profiles
+4. How the model works
 5. Exit
-```
 
-**Run simulation path:**
-1. Choose profile (1–3)
-2. Ask for days (1–60) and initial infected (1–10)
-3. Ask for seed (optional)
-4. Create Simulation, call reset with seed, call run with showDailyReport = true
-5. Print final summary
-6. Ask to export
-7. Ask to run again with same settings or return to menu
+When they run a simulation:
+- Pick profile, days, and starting infected (same as now)
+- New question about using a seed
+- Run it and show the grid and daily numbers
+- At the end ask if they want to save a file
+- Then go back to the menu
 
-**Comparison path:** stays mostly the same, but I will also print the seed used for each profile so the results are reproducible.
-
-**Edge cases to handle:**
-- User enters non-numeric input → existing validation already clears and re-prompts
-- User asks for more initial infected than population → already limited to 10
-- Outbreak dies out early → current code already breaks the day loop when infected == 0
-- File write fails → print an error message and continue
+I’ll keep the input checking I already have so bad input doesn’t break it.
 
 ---
 
-## 5. User Interaction Changes
+## 5. Code Changes
 
-- One new yes/no prompt for seed
-- One new yes/no prompt for export
-- One new menu option for quick run
-- All new prompts will use the same validated input style already in the program
-- Color coding stays the same (cyan headers, yellow section titles, red for infected/#, etc.)
+Most of the work will be in the main file (COS1-Console.cpp). I need to add the new prompts and a function that writes the text file. Simulation already takes a seed, so I probably don’t need to change the class much.
 
----
-
-## 6. Class / Code Changes (Specific)
-
-| File | Change |
-|------|--------|
-| `COS1-Console.cpp` | Add seed prompt, export prompt, quick-run option, file-writing helper |
-| `Simulation.h` / `.cpp` | No major changes required; seed already supported. May add a method to return the last seed used if I want it cleaner. |
-| `Person` / `VirusProfile` | No changes planned |
-
-**New helper functions (in the anonymous namespace of the main file):**
-- `bool readYesNo()`
-- `unsigned int readSeed()`
-- `void exportResults(const SimulationSummary&, const VirusProfile&, unsigned int seed)`
+New helper functions I’ll add in main:
+- One to read yes or no
+- One to read a seed number
+- One to write the results file
 
 ---
 
-## 7. Potential Challenges & Mitigations
+## 6. Things That Might Be Tricky
 
-| Challenge | Mitigation |
-|-----------|------------|
-| File writes to the wrong folder when launched from Visual Studio | Print the full path after writing; test from both the IDE and a command prompt |
-| Console floods on 60-day runs | Already only reprint the grid every 5 days; keep that behavior |
-| Same seed does not reproduce | Verify by running twice with the same seed and comparing the first 5 days of output |
-| Scope creep | Stick to the four features listed; move anything else to a later week |
+- Making sure the text file ends up in the right folder when I run it from Visual Studio
+- Checking that the same seed really gives the same results
+- Not letting the console get too long on big runs (I already only reprint the grid every 5 days, so that should be fine)
 
 ---
 
-## 8. Testing Plan
+## 7. How I’ll Test It
 
-1. Run the same seed + profile twice and confirm the daily numbers match.
-2. Export a report and open the text file to verify the numbers.
-3. Try bad input (letters, numbers out of range) on every new prompt.
-4. Run a quick-run and a full custom run back-to-back.
-5. Confirm the comparison table still lines up after any formatting tweaks.
-
----
-
-## 9. Success Criteria for This Milestone
-
-- [ ] User can choose a seed and get identical results on repeated runs
-- [ ] User can export a readable text report after a simulation
-- [ ] Quick-run option works with sensible defaults
-- [ ] All new prompts validate input and do not crash
-- [ ] Planning document is complete and the progress video shows at least the seed or export feature working
-- [ ] Repository is updated with the latest code and this document
+1. Run the same seed twice and see if the numbers match
+2. Save a file and open it to check the numbers
+3. Try typing letters and bad numbers on the new prompts
+4. Try the quick run and a normal run
 
 ---
 
-## 10. Next Steps After This Plan
+## 8. What Done Looks Like
 
-1. Implement the seed prompt and verify reproducibility.
-2. Add the export function and test the output file.
-3. Add the quick-run menu option.
-4. Record the progress video showing one of the new features.
-5. Update the weekly stand-up in the main README.
+- Can pick a seed and get the same outbreak again
+- Can save a text file with the results
+- Quick run works
+- New prompts don’t crash on bad input
+- This planning file is done and I can show at least one of the new features in the video
 
 ---
 
-*This document is a living plan and will be updated as features are implemented.*
+## 9. Next Steps
+
+1. Add the seed prompt and test it
+2. Add the save-to-file part
+3. Add the quick run option
+4. Record the video
+5. Update the stand-up in the main README
+
+---
+
+This is the plan I’m going to follow this week. I’ll update it if I change anything while I’m coding.
