@@ -67,6 +67,25 @@ namespace
         }
     }
 
+    bool readYesNo()
+    {
+        while (true)
+        {
+            std::cout << "(y/n): ";
+            std::string input;
+            std::getline(std::cin, input);
+            if (input == "y" || input == "Y")
+            {
+                return true;
+            }
+            if (input == "n" || input == "N")
+            {
+                return false;
+            }
+            std::cout << kRed << "Please enter y or n.\n" << kReset;
+        }
+    }
+
     void printProfile(const VirusProfile& profile, int number)
     {
         std::cout << "  " << number << ". " << profile.getName() << "\n"
@@ -91,8 +110,20 @@ namespace
         std::cout << "\nHow many initial infected people?\n";
         const int initial = readMenuChoice(1, 10);
 
+        std::cout << "\nUse a specific seed? ";
+        unsigned int seed = 0;
+        if (readYesNo())
+        {
+            std::cout << "Enter seed number: ";
+            seed = static_cast<unsigned int>(readMenuChoice(0, 999999));
+        }
+        else
+        {
+            seed = std::random_device{}();
+        }
+
         Simulation sim;
-        sim.reset(initial, std::random_device{}());
+        sim.reset(initial, seed);
         sim.run(profiles[profileChoice - 1], days, true);
         pauseForUser();
     }
