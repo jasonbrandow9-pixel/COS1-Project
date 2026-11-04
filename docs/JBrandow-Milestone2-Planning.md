@@ -8,7 +8,7 @@
 
 ## 1. Current Project Overview
 
-Virus Spread Lab is my C++ console program that shows how a virus can spread on a grid. Each spot is a person who can be susceptible, infected, or recovered. Right now it has three example profiles, a live grid that updates, daily numbers, a spread factor, a comparison mode, and a screen that explains the model.
+Virus Spread Lab is the C++ console program I built. It shows how a virus can spread on a grid. Each spot is a person who can be susceptible, infected, or recovered. Right now I have three example profiles, a live grid that updates, daily numbers, a spread factor, a comparison mode, and a screen that explains the model.
 
 What I already have working:
 - 30 by 14 grid (420 people)
@@ -18,7 +18,7 @@ What I already have working:
 - Menu that checks input so it doesn’t crash
 - Simulation::reset already takes a seed
 
-Classes I have:
+Classes I made:
 - Person – keeps track of if someone is sick and how long
 - VirusProfile – holds the settings for contacts, chance, and recovery days
 - Simulation – does the grid, the daily steps, and the reports
@@ -30,7 +30,7 @@ Classes I have:
 
 I looked at simple SIR models and other console simulations people have made for class. A lot of them use a grid with clear symbols, random contacts, and preset scenarios so you can compare without typing a bunch of numbers every time. Daily summary numbers also help so you don’t have to stare at the grid the whole time.
 
-Things that seemed to work well:
+Things that seemed to work well for me:
 - Different symbols for each state
 - Preset profiles instead of making the user set everything
 - A note that the numbers are just for the classroom and not real medical data
@@ -40,31 +40,31 @@ Things that seemed to work well:
 ## 3. Planned Features
 
 ### Feature 1: Repeatable Seeds
-I want the user to be able to type in a seed number so the same settings give the same outbreak every time. That will make it easier to test and to show the same run twice if I need to.
+I want the user to be able to type in a seed number so the same settings give the same outbreak every time. That will make it easier for me to test and to show the same run twice if I need to.
 
-Flow:
+How I plan to do it:
 1. User picks a profile
-2. Ask if they want to use a specific seed
-3. If yes, read a number and use it
-4. If no, keep doing what it does now with random
-5. Pass that seed into reset
+2. I ask if they want to use a specific seed
+3. If yes, I read a number and use it
+4. If no, I keep doing what it does now with random
+5. I pass that seed into reset
 
 ### Feature 2: Save Results to a File
-After a run finishes, ask if they want to save a text file with the summary. The file would have the profile name, the seed, peak infected, and the final numbers.
+After a run finishes, I want to ask if they want to save a text file with the summary. The file would have the profile name, the seed, peak infected, and the final numbers.
 
 ### Feature 3: Easier to Use
-- Add a quick run option that just uses some defaults so I don’t have to answer every question every time
+- I want to add a quick run option that just uses some defaults so I don’t have to answer every question every time
 - Maybe ask for confirmation if the run is going to be long
 - Make the comparison table a little wider so the names fit better
 
 ### Feature 4: Simple Checks (if I have time)
-Small tests to make sure the population count stays the same and that people recover on the right day. Could hide it behind a menu option I only use while testing.
+I might add small tests to make sure the population count stays the same and that people recover on the right day. I could hide it behind a menu option I only use while testing.
 
 ---
 
 ## 4. How the Program Will Work
 
-Main menu will look something like:
+I’m thinking the main menu will look something like:
 1. Run a simulation
 2. Quick run
 3. Compare profiles
@@ -110,10 +110,10 @@ New helper functions I’ll add in main:
 
 ---
 
-## 8. What Done Looks Like
+## 8. What Done Looks Like for Me
 
-- Can pick a seed and get the same outbreak again
-- Can save a text file with the results
+- I can pick a seed and get the same outbreak again
+- I can save a text file with the results
 - Quick run works
 - New prompts don’t crash on bad input
 - This planning file is done and I can show at least one of the new features in the video
