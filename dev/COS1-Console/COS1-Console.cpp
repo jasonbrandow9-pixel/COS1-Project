@@ -157,6 +157,25 @@ namespace
         pauseForUser();
     }
 
+    void quickRun(const std::vector<VirusProfile>& profiles)
+    {
+        std::cout << "\n" << kYellow << "QUICK RUN" << kReset << "\n";
+        std::cout << "Using defaults: Seasonal-flu style, 30 days, 3 initial infected, random seed.\n";
+
+        const unsigned int seed = std::random_device{}();
+        Simulation sim;
+        sim.reset(3, seed);
+        const SimulationSummary summary = sim.run(profiles[1], 30, true);
+
+        std::cout << "\nSave results to file? ";
+        if (readYesNo())
+        {
+            saveResults(summary, profiles[1], seed);
+        }
+
+        pauseForUser();
+    }
+
     void compareProfiles(const std::vector<VirusProfile>& profiles)
     {
         std::cout << "\n" << kYellow << "PROFILE COMPARISON" << kReset << "\n";
@@ -207,22 +226,26 @@ int main()
     {
         std::cout << "\n" << kCyan << "MAIN MENU" << kReset << "\n"
                   << "  1. Run an outbreak simulation\n"
-                  << "  2. Compare illustrative profiles\n"
-                  << "  3. Learn how the model works\n"
-                  << "  4. Exit\n";
+                  << "  2. Quick run (defaults)\n"
+                  << "  3. Compare illustrative profiles\n"
+                  << "  4. Learn how the model works\n"
+                  << "  5. Exit\n";
 
-        switch (readMenuChoice(1, 4))
+        switch (readMenuChoice(1, 5))
         {
         case 1:
             runInteractiveSimulation(profiles);
             break;
         case 2:
-            compareProfiles(profiles);
+            quickRun(profiles);
             break;
         case 3:
-            explainModel();
+            compareProfiles(profiles);
             break;
         case 4:
+            explainModel();
+            break;
+        case 5:
             running = false;
             break;
         }
