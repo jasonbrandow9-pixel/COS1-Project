@@ -57,7 +57,7 @@ Feel like I finally get the basic clone / commit / push loop now. Next up I'm go
 
 ### Week 2
 
-- **Overview:** Built the Virus Spread Lab simulation and added illustrative transmission profiles.
-- **Challenges:** Needed to make the model understandable without presenting simplified values as medical facts.
-- **Accomplishments:** Added susceptible/infected/recovered states, recovery timing, spread-factor reporting, comparison mode, and an assumptions screen.
-- **Next steps:** Add repeatable scenario seeds, automated checks for the simulation rules, and exportable results.
+- **Overview:** Expanded Virus Spread Lab with repeatable seeds, result export, and a Quick Run option. Improved input validation and menu clarity.
+- **Challenges:** Making sure the same seed produced identical results and that the report file wrote correctly from Visual Studio. Addressed by testing the same seed twice and verifying the output file.
+- **Accomplishments:** Added seed control, file saving, Quick Run defaults, and stronger error handling so the program is easier for others to use. Kept the existing class structure clean.
+- **Next steps:** Implement remaining open Issues (custom virus settings, simple quarantine option, richer comparison table) and add light automated checks for the simulation rules.
