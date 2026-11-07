@@ -77,12 +77,24 @@ These changes make the program easier for someone else to use without needing to
 
 ---
 
+## Commit History Highlights (Milestone 2)
+
+- Add optional seed prompt to simulation run
+- Add option to save simulation results to a text file
+- Add quick run option with default settings
+- Add Milestone 2 documentation for features, usability improvements, and code changes
+
+These commits were made throughout the week and show incremental progress.
+
+---
+
 ## Testing Notes
 
 - Ran the same seed twice and confirmed matching results.
 - Tested invalid menu input and yes/no answers – program recovers cleanly.
 - Verified the report file is created with correct numbers.
 - Quick Run produces a full simulation without extra questions.
+- Usability improvements (validation and clearer prompts) were verified by intentionally entering invalid input.
 
 ---
 
