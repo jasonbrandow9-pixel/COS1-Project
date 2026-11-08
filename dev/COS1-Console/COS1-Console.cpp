@@ -2,6 +2,7 @@
 #include "Simulation.h"
 #include "VirusProfile.h"
 
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <limits>
@@ -68,6 +69,25 @@ namespace
         }
     }
 
+    bool readYesNo()
+    {
+        while (true)
+        {
+            std::cout << "(y/n): ";
+            std::string input;
+            std::getline(std::cin, input);
+            if (input == "y" || input == "Y")
+            {
+                return true;
+            }
+            if (input == "n" || input == "N")
+            {
+                return false;
+            }
+            std::cout << kRed << "Please enter y or n.\n" << kReset;
+        }
+    }
+
     void printProfile(const VirusProfile& profile, int number)
     {
         std::cout << "  " << number << ". " << profile.getName() << "\n"
@@ -76,6 +96,27 @@ namespace
                   << " | Transmission chance: " << std::fixed << std::setprecision(0)
                   << profile.getTransmissionChance() * 100 << "%"
                   << " | Recovery: " << profile.getRecoveryDays() << " days\n";
+    }
+
+    void saveResults(const SimulationSummary& summary, const VirusProfile& profile, unsigned int seed)
+    {
+        std::ofstream file("outbreak_report.txt");
+        if (!file)
+        {
+            std::cout << kRed << "Could not create outbreak_report.txt\n" << kReset;
+            return;
+        }
+
+        file << "Virus Spread Lab - Outbreak Report\n";
+        file << "Profile: " << profile.getName() << "\n";
+        file << "Seed: " << seed << "\n";
+        file << "Days run: " << summary.daysRun << "\n";
+        file << "Peak infected: " << summary.peakInfected << "\n";
+        file << "Final infected: " << summary.finalInfected << "\n";
+        file << "Final recovered: " << summary.finalRecovered << "\n";
+        file << "Total population: " << summary.totalPopulation << "\n";
+
+        std::cout << "Saved results to outbreak_report.txt\n";
     }
 
     void runInteractiveSimulation(const std::vector<VirusProfile>& profiles)
@@ -104,6 +145,48 @@ namespace
             std::cout << "  2. No, return to main menu\n";
             playAgain = (readMenuChoice(1, 2) == 1);
         }
+        std::cout << "\nUse a specific seed? ";
+        unsigned int seed = 0;
+        if (readYesNo())
+        {
+            std::cout << "Enter seed number: ";
+            seed = static_cast<unsigned int>(readMenuChoice(0, 999999));
+        }
+        else
+        {
+            seed = std::random_device{}();
+        }
+
+        Simulation sim;
+        sim.reset(initial, seed);
+        const SimulationSummary summary = sim.run(profiles[profileChoice - 1], days, true);
+
+        std::cout << "\nSave results to file? ";
+        if (readYesNo())
+        {
+            saveResults(summary, profiles[profileChoice - 1], seed);
+        }
+
+        pauseForUser();
+    }
+
+    void quickRun(const std::vector<VirusProfile>& profiles)
+    {
+        std::cout << "\n" << kYellow << "QUICK RUN" << kReset << "\n";
+        std::cout << "Using defaults: Seasonal-flu style, 30 days, 3 initial infected, random seed.\n";
+
+        const unsigned int seed = std::random_device{}();
+        Simulation sim;
+        sim.reset(3, seed);
+        const SimulationSummary summary = sim.run(profiles[1], 30, true);
+
+        std::cout << "\nSave results to file? ";
+        if (readYesNo())
+        {
+            saveResults(summary, profiles[1], seed);
+        }
+
+        pauseForUser();
     }
 
     void compareProfiles(const std::vector<VirusProfile>& profiles)
@@ -156,22 +239,26 @@ int main()
     {
         std::cout << "\n" << kCyan << "MAIN MENU" << kReset << "\n"
                   << "  1. Run an outbreak simulation\n"
-                  << "  2. Compare illustrative profiles\n"
-                  << "  3. Learn how the model works\n"
-                  << "  4. Exit\n";
+                  << "  2. Quick run (defaults)\n"
+                  << "  3. Compare illustrative profiles\n"
+                  << "  4. Learn how the model works\n"
+                  << "  5. Exit\n";
 
-        switch (readMenuChoice(1, 4))
+        switch (readMenuChoice(1, 5))
         {
         case 1:
             runInteractiveSimulation(profiles);
             break;
         case 2:
-            compareProfiles(profiles);
+            quickRun(profiles);
             break;
         case 3:
-            explainModel();
+            compareProfiles(profiles);
             break;
         case 4:
+            explainModel();
+            break;
+        case 5:
             running = false;
             break;
         }
