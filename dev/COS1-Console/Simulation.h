@@ -10,9 +10,11 @@ struct SimulationSummary
 {
     int daysRun = 0;
     int peakInfected = 0;
+    int peakDay = 0;
     int finalInfected = 0;
     int finalRecovered = 0;
     int totalPopulation = 0;
+    int everInfected = 0;
 };
 
 class Simulation
