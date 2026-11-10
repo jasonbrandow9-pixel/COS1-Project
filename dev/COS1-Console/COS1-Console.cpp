@@ -7,6 +7,7 @@
 #include <iostream>
 #include <limits>
 #include <random>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -52,20 +53,29 @@ namespace
 
     int readMenuChoice(int minimum, int maximum)
     {
-        int choice = 0;
         while (true)
         {
             std::cout << "Enter a number between " << minimum << " and " << maximum << ": ";
-            if (std::cin >> choice && choice >= minimum && choice <= maximum)
-            {
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                return choice;
-            }
+            std::string input;
+            std::getline(std::cin, input);
 
-            std::cout << kRed << "That is not a valid choice. Please enter a whole number from "
-                      << minimum << " to " << maximum << ".\n" << kReset;
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            try
+            {
+                const int choice = std::stoi(input);
+                if (choice >= minimum && choice <= maximum)
+                {
+                    return choice;
+                }
+                std::cout << kRed << "That number is outside the allowed range." << kReset << "\n";
+            }
+            catch (const std::invalid_argument&)
+            {
+                std::cout << kRed << "Please enter a whole number." << kReset << "\n";
+            }
+            catch (const std::out_of_range&)
+            {
+                std::cout << kRed << "That number is too large." << kReset << "\n";
+            }
         }
     }
 
@@ -136,35 +146,35 @@ namespace
             std::cout << "\nHow many initial infected people?\n";
             const int initial = readMenuChoice(1, 10);
 
+            std::cout << "\nUse a specific seed? ";
+            unsigned int seed = 0;
+            if (readYesNo())
+            {
+                std::cout << "Enter seed number: ";
+                seed = static_cast<unsigned int>(readMenuChoice(0, 999999));
+            }
+            else
+            {
+                seed = std::random_device{}();
+            }
+
+            // Meaningful pointer usage: selected profile is accessed through a pointer
+            const VirusProfile* selectedProfile = &profiles[static_cast<std::size_t>(profileChoice - 1)];
+
             Simulation sim;
-            sim.reset(initial, std::random_device{}());
-            sim.run(profiles[profileChoice - 1], days, true);
+            sim.reset(initial, seed);
+            const SimulationSummary summary = sim.run(*selectedProfile, days, true);
+
+            std::cout << "\nSave results to file? ";
+            if (readYesNo())
+            {
+                saveResults(summary, *selectedProfile, seed);
+            }
 
             std::cout << "\nRun another simulation with different settings?\n";
             std::cout << "  1. Yes, run again\n";
             std::cout << "  2. No, return to main menu\n";
             playAgain = (readMenuChoice(1, 2) == 1);
-        }
-        std::cout << "\nUse a specific seed? ";
-        unsigned int seed = 0;
-        if (readYesNo())
-        {
-            std::cout << "Enter seed number: ";
-            seed = static_cast<unsigned int>(readMenuChoice(0, 999999));
-        }
-        else
-        {
-            seed = std::random_device{}();
-        }
-
-        Simulation sim;
-        sim.reset(initial, seed);
-        const SimulationSummary summary = sim.run(profiles[profileChoice - 1], days, true);
-
-        std::cout << "\nSave results to file? ";
-        if (readYesNo())
-        {
-            saveResults(summary, profiles[profileChoice - 1], seed);
         }
 
         pauseForUser();
@@ -176,14 +186,16 @@ namespace
         std::cout << "Using defaults: Seasonal-flu style, 30 days, 3 initial infected, random seed.\n";
 
         const unsigned int seed = std::random_device{}();
+        const VirusProfile* selectedProfile = &profiles[1];
+
         Simulation sim;
         sim.reset(3, seed);
-        const SimulationSummary summary = sim.run(profiles[1], 30, true);
+        const SimulationSummary summary = sim.run(*selectedProfile, 30, true);
 
         std::cout << "\nSave results to file? ";
         if (readYesNo())
         {
-            saveResults(summary, profiles[1], seed);
+            saveResults(summary, *selectedProfile, seed);
         }
 
         pauseForUser();
@@ -202,11 +214,12 @@ namespace
 
         for (std::size_t i = 0; i < profiles.size(); ++i)
         {
+            const VirusProfile* profile = &profiles[i];
             Simulation sim;
             sim.reset(initial, static_cast<unsigned int>(900 + i));
-            const SimulationSummary result = sim.run(profiles[i], days, false);
+            const SimulationSummary result = sim.run(*profile, days, false);
 
-            std::cout << std::left << std::setw(32) << profiles[i].getName()
+            std::cout << std::left << std::setw(32) << profile->getName()
                       << std::right << std::setw(13) << result.peakInfected
                       << std::setw(22) << result.finalRecovered
                       << std::setw(16) << result.daysRun << '\n';
