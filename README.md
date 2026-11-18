@@ -1,1 +1,54 @@
-# COS1 Project & Portfolio\n\nThis repository documents the development of a small C++ portfolio project while practicing Git, Visual Studio, documentation, and iterative delivery.\n\n## Current project: Virus Spread Lab\n\nVirus Spread Lab is an interactive educational simulation of transmission and recovery on a grid. It helps visualize how relative contact frequency, transmission chance, and recovery time can affect outbreak curves.\n\nThe program includes a live grid, daily statistics, a spread-factor metric, illustrative profile comparisons, and an explanation of the model assumptions. It uses only the C++ standard library and clearly separates classroom simulation from real-world medical data.\n\n## Build the project\n\n1. Open dev/COS1-Project.sln in Visual Studio.\n2. Select the Debug configuration and x64 platform.\n3. Build with Build > Build Solution.\n4. Run with Debug > Start Without Debugging.\n\nSee dev/COS1-Console/README.md for the feature list and project-specific instructions.\n\n## Weekly stand-up\n\n### Week 1\n\n- Overview: Set up the repository, created the Visual Studio solution, and built the first interactive C++ feature.\n- Challenges: Started with a blank console project and needed a structure that would be easy to extend without unnecessary dependencies.\n- Accomplishments: Added the first working console application and documented the build process.\n- Next steps: Turned the project into a safe virus-spread simulation with an interactive grid, daily metrics, and profile comparisons.\n\n### Week 2\n\n- Overview: Expanded Virus Spread Lab with repeatable seeds, result export, and a Quick Run option. Improved input validation and menu clarity.\n- Challenges: Making sure the same seed produced identical results and that the report file wrote correctly from Visual Studio.\n- Accomplishments: Added seed control, file saving, Quick Run defaults, and stronger error handling.\n- Next steps: Implement remaining open Issues and add light automated checks for the simulation rules.\n\n### Week 3\n\n- Overview: Fixed the compilation error in runInteractiveSimulation and improved input validation and pointer usage based on instructor feedback.\n- Improvements: Moved seed and export logic inside the replay loop, switched numeric input to getline/stoi/try-catch, and added pointer usage for the selected profile.\n- Challenges: Variables were out of scope after the replay loop. Resolved by moving dependent code inside the loop.\n- Accomplishments: Program now compiles cleanly and input handling matches the required style.\n\n### Week 4 — Final Stand-Up\n\n- Overview: Completed the final development and documentation pass for Virus Spread Lab, including a review of the application flow, validation behavior, replay loop, profile comparison, Quick Run path, help screen, result export, and GitHub history.\n- Project wrap-up: Finished an educational outbreak simulation with separate Person, VirusProfile, and Simulation classes. Polished prompts, added specific invalid-input messages, preserved repeatable seeds and report export, documented the model assumptions, and corrected the earlier scope-related compilation problem.\n- Challenges: The main challenge was fixing the replay flow without breaking variables created inside the loop. I kept seed selection, profile access, simulation execution, and export together inside the valid scope.\n- Biggest takeaway: A small, repeatable Git and testing workflow makes debugging much less stressful. Clear issues, small commits, readable class boundaries, and a final review make it easier to understand what changed and why.\n- Future development: I would add custom single-run settings, a quarantine-strength control, more formal automated checks for infection and recovery rules, and a richer comparison report.
+# COS1 Project & Portfolio
+
+This repository documents the development of a C++ portfolio project using Visual Studio, Git, GitHub, and iterative delivery.
+
+## Current project: Virus Spread Lab
+
+Virus Spread Lab is an educational console simulation that models how simplified contact frequency, transmission chance, and recovery time can affect an outbreak on a grid. It is an illustrative classroom model, not a medical forecast.
+
+### Current features
+
+- Grid-based outbreak simulation with daily susceptible, infected, recovered, and new-infection counts.
+- Separate `Person`, `VirusProfile`, and `Simulation` classes.
+- Three illustrative virus profiles for comparison.
+- Interactive simulation settings and a Quick Run path with defaults.
+- Optional repeatable seed selection.
+- Optional export to `outbreak_report.txt`.
+- Input validation with clear messages for invalid and out-of-range values.
+- Help screen explaining the grid, recovery behavior, and model assumptions.
+- Replay flow for running another simulation without restarting the program.
+
+## Build and run
+
+1. Open `dev/COS1-Project.sln` in Visual Studio.
+2. Select the **Debug** configuration and **x64** platform.
+3. Choose **Build > Build Solution**.
+4. Run with **Debug > Start Without Debugging**.
+
+Project-specific instructions are in [`dev/COS1-Console/README.md`](./dev/COS1-Console/README.md).
+
+## Milestone 4 status
+
+The final development pass addressed the replay-loop scope issue, improved line-based input validation with `std::getline` and `std::stoi`, preserved pointer-based access to the selected profile, and kept seed selection and optional report export inside the valid simulation scope. Additional details are documented in [`docs/Milestone4.md`](./docs/Milestone4.md).
+
+## Weekly stand-up
+
+### Week 1
+
+Set up the repository and Visual Studio solution, built the first console feature, and established the project structure.
+
+### Week 2
+
+Added repeatable seeds, result export, Quick Run defaults, stronger input handling, and clearer menu navigation.
+
+### Week 3
+
+Fixed the compilation and scope problem in `runInteractiveSimulation`, improved numeric input handling, and used a pointer for the selected profile.
+
+### Week 4 — Final stand-up
+
+Completed the final development and documentation pass. Reviewed the application flow, validation behavior, replay loop, profile comparison, Quick Run path, Help screen, result export, and GitHub history. The main takeaway was that small commits, clear issues, readable class boundaries, and a final review make debugging and delivery more manageable.
+
+## Future development
+
+Possible next steps include custom settings for a single run, a quarantine-strength control, automated checks for infection and recovery rules, a richer comparison report, and further separation of input and reporting from the simulation model.
