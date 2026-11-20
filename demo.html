@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A browser preview of the Virus Spread Lab classroom simulation.">
+  <title>Virus Spread Lab Preview | Jason Brandow</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page-width demo-page">
+    <header class="demo-header">
+      <div>
+        <p class="kicker">PROJECT PREVIEW</p>
+        <h1>Virus Spread Lab</h1>
+        <p>Choose a profile and step through a small grid simulation. The rules match the C++ project: infected people make random neighboring contacts, and recover after the selected number of days.</p>
+      </div>
+      <a class="text-link" href="index.html#projects">Back to the portfolio ↑</a>
+    </header>
+    <div class="demo-controls">
+      <label for="profile">Illustrative profile
+        <select id="profile">
+          <option value="0">Common-cold style</option>
+          <option value="1" selected>Seasonal-flu style</option>
+          <option value="2">High-transmission style</option>
+        </select>
+      </label>
+      <label for="initial">Starting infected (1–10)
+        <input id="initial" type="number" min="1" max="10" value="3">
+      </label>
+      <label for="days">Days to run (1–60)
+        <input id="days" type="number" min="1" max="60" value="30">
+      </label>
+      <button class="button" id="start" type="button">Start new run</button>
+      <button class="button button-light" id="next" type="button" disabled>Next day</button>
+      <button class="button button-light" id="finish" type="button" disabled>Run to finish</button>
+    </div>
+    <p class="demo-status" id="status" aria-live="polite">Choose settings, then start a run.</p>
+    <div class="demo-board" id="board" role="img" aria-label="Simulation grid"></div>
+    <div class="demo-stats" aria-live="polite">
+      <div class="demo-stat"><span>Day</span><strong id="day-count">0</strong></div>
+      <div class="demo-stat"><span>Susceptible</span><strong id="susceptible-count">417</strong></div>
+      <div class="demo-stat"><span>Infected</span><strong id="infected-count">3</strong></div>
+      <div class="demo-stat"><span>Recovered</span><strong id="recovered-count">0</strong></div>
+    </div>
+    <p class="demo-note">This browser preview is a separate demonstration of the project’s rules. It is not the C++ executable, and its random results will differ from run to run. The model is simplified for classroom use and is not medical advice or a forecast.</p>
+    <a class="text-link demo-back" href="https://github.com/jasonbrandow9-pixel/COS1-Project">View the C++ source repository ↗</a>
+  </main>
+  <script>
+    const width = 30;
+    const height = 14;
+    const population = width * height;
+    const profiles = [
+      { name: "Common-cold style", contacts: 2, chance: 0.18, recovery: 5 },
+      { name: "Seasonal-flu style", contacts: 3, chance: 0.28, recovery: 7 },
+      { name: "High-transmission style", contacts: 4, chance: 0.42, recovery: 9 }
+    ];
+    const board = document.getElementById("board");
+    const statusLine = document.getElementById("status");
+    const nextButton = document.getElementById("next");
+    const finishButton = document.getElementById("finish");
+    let states = Array(population).fill("susceptible");
+    let ages = Array(population).fill(0);
+    let day = 0;
+    let dayLimit = 30;
+    let profile = profiles[1];
+
+    function countState(state) {
+      return states.filter(value => value === state).length;
+    }
+
+    function render() {
+      board.innerHTML = states.map(state => '<span class="demo-cell ' + (state === "susceptible" ? "" : state) + '"></span>').join("");
+      board.setAttribute("aria-label", countState("infected") + " infected, " + countState("recovered") + " recovered, " + countState("susceptible") + " susceptible");
+      document.getElementById("day-count").textContent = day;
+      document.getElementById("susceptible-count").textContent = countState("susceptible");
+      document.getElementById("infected-count").textContent = countState("infected");
+      document.getElementById("recovered-count").textContent = countState("recovered");
+    }
+
+    function finishRun() {
+      const active = day < dayLimit && countState("infected") > 0;
+      nextButton.disabled = !active;
+      finishButton.disabled = !active;
+      if (!active && day > 0) {
+        statusLine.textContent = "Run complete after " + day + (day === 1 ? " day." : " days.");
+      }
+    }
+
+    function startRun() {
+      const initialCount = Number(document.getElementById("initial").value);
+      const requestedDays = Number(document.getElementById("days").value);
+      if (!Number.isInteger(initialCount) || initialCount < 1 || initialCount > 10) {
+        statusLine.textContent = "Enter a whole number from 1 to 10 for starting infections.";
+        return;
+      }
+      if (!Number.isInteger(requestedDays) || requestedDays < 1 || requestedDays > 60) {
+        statusLine.textContent = "Enter a whole number from 1 to 60 for the run length.";
+        return;
+      }
+      states = Array(population).fill("susceptible");
+      ages = Array(population).fill(0);
+      let placed = 0;
+      while (placed < initialCount) {
+        const index = Math.floor(Math.random() * population);
+        if (states[index] === "susceptible") {
+          states[index] = "infected";
+          placed += 1;
+        }
+      }
+      day = 0;
+      dayLimit = requestedDays;
+      profile = profiles[Number(document.getElementById("profile").value)];
+      statusLine.textContent = profile.name + " · " + initialCount + " starting cases · " + dayLimit + " day limit.";
+      render();
+      finishRun();
+    }
+
+    function stepDay() {
+      if (day >= dayLimit || countState("infected") === 0) {
+        finishRun();
+        return;
+      }
+      const nextStates = states.slice();
+      const nextAges = ages.slice();
+      const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+      for (let index = 0; index < population; index += 1) {
+        if (states[index] !== "infected") continue;
+        const row = Math.floor(index / width);
+        const column = index % width;
+        for (let contact = 0; contact < profile.contacts; contact += 1) {
+          const [rowChange, columnChange] = directions[Math.floor(Math.random() * directions.length)];
+          const neighborRow = row + rowChange;
+          const neighborColumn = column + columnChange;
+          if (neighborRow < 0 || neighborRow >= height || neighborColumn < 0 || neighborColumn >= width) continue;
+          const neighbor = neighborRow * width + neighborColumn;
+          if (states[neighbor] === "susceptible" && nextStates[neighbor] === "susceptible" && Math.random() < profile.chance) {
+            nextStates[neighbor] = "infected";
+            nextAges[neighbor] = 0;
+          }
+        }
+        nextAges[index] = ages[index] + 1;
+        if (nextAges[index] >= profile.recovery) {
+          nextStates[index] = "recovered";
+          nextAges[index] = 0;
+        }
+      }
+      states = nextStates;
+      ages = nextAges;
+      day += 1;
+      render();
+      statusLine.textContent = "Day " + day + " · " + countState("infected") + " currently infected · " + countState("recovered") + " recovered.";
+      finishRun();
+    }
+
+    document.getElementById("start").addEventListener("click", startRun);
+    nextButton.addEventListener("click", stepDay);
+    finishButton.addEventListener("click", () => {
+      while (day < dayLimit && countState("infected") > 0) stepDay();
+    });
+    render();
+  </script>
+</body>
+</html>
