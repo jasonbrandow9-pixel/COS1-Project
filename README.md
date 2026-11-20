@@ -4,7 +4,7 @@ This repository documents the development of a C++ portfolio project using Visua
 
 ## Portfolio website
 
-The repository includes a responsive [Virus Spread Lab portfolio page](https://jasonbrandow9-pixel.github.io/COS1-Project/) built from the project's existing documentation and screenshots. See [docs/PORTFOLIO.md](./docs/PORTFOLIO.md) for site details and GitHub Pages setup.
+The portfolio source page is in [index.html](./index.html), with shared styling in [styles.css](./styles.css), an interactive browser preview in [demo.html](./demo.html), and a resume page in [resume.html](./resume.html). See [docs/PORTFOLIO.md](./docs/PORTFOLIO.md) for the assignment's GitHub Pages repository requirement and deployment notes.
 
 ## Current project: Virus Spread Lab
 
