@@ -2,6 +2,10 @@
 
 This repository documents the development of a C++ portfolio project using Visual Studio, Git, GitHub, and iterative delivery.
 
+## Portfolio website
+
+The repository includes a responsive [Virus Spread Lab portfolio page](https://jasonbrandow9-pixel.github.io/COS1-Project/) built from the project's existing documentation and screenshots. See [docs/PORTFOLIO.md](./docs/PORTFOLIO.md) for site details and GitHub Pages setup.
+
 ## Current project: Virus Spread Lab
 
 Virus Spread Lab is an educational console simulation that models how simplified contact frequency, transmission chance, and recovery time can affect an outbreak on a grid. It is an illustrative classroom model, not a medical forecast.
