@@ -3,141 +3,131 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101d2b">
-  <meta name="description" content="Jason Brandow's COS1 project portfolio: Virus Spread Lab, an educational C++ outbreak simulation.">
-  <title>Jason Brandow — Virus Spread Lab</title>
+  <meta name="description" content="Jason Brandow's computer science portfolio, featuring a C++ outbreak simulation project.">
+  <title>Jason Brandow | Computer Science Portfolio</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="Jason Brandow, home">
-      <span class="brand-mark" aria-hidden="true">JB</span>
-      <span>Jason Brandow <span class="brand-detail">/ Computer Science</span></span>
-    </a>
+  <header class="site-header" id="top">
+    <a class="wordmark" href="#top">Jason Brandow</a>
     <nav aria-label="Main navigation">
-      <a href="#project">Project</a>
-      <a href="#process">Process</a>
-      <a href="#documentation">Documentation</a>
-      <a class="nav-github" href="https://github.com/jasonbrandow9-pixel/COS1-Project">GitHub <span aria-hidden="true">↗</span></a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
-
   <main id="main">
-    <section class="hero section-wrap" id="top">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="eyebrow-line"></span> COS1 · PROJECT &amp; PORTFOLIO I</p>
-        <h1>Small models.<br><span>Clear patterns.</span></h1>
-        <p class="hero-lede">Virus Spread Lab is a C++ console simulation that makes the daily movement of a simplified outbreak easier to explore.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#project">Explore the project <span aria-hidden="true">↓</span></a>
-          <a class="button button-quiet" href="https://github.com/jasonbrandow9-pixel/COS1-Project">View source <span aria-hidden="true">↗</span></a>
+    <section class="intro page-width">
+      <div>
+        <p class="kicker">COMPUTER SCIENCE STUDENT · FULL SAIL UNIVERSITY</p>
+        <h1>Hi, I’m Jason.</h1>
+        <p class="intro-text">I’m learning software development by building projects, working through bugs, and improving the way I organize my code. My current project is a C++ program called Virus Spread Lab.</p>
+        <div class="intro-links">
+          <a class="button" href="#projects">See my project</a>
+          <a class="text-link" href="resume.html">View my resume <span aria-hidden="true">↗</span></a>
         </div>
-        <p class="hero-note">An educational model built with C++, Visual Studio, Git, and GitHub.</p>
       </div>
-      <div class="hero-visual" aria-label="Illustrative grid of susceptible, infected, and recovered states">
-        <div class="visual-topline"><span>VIRUS SPREAD LAB</span><span class="live-dot">MODEL VIEW</span></div>
-        <div class="simulation-grid" aria-hidden="true">
-          <i></i><i></i><i class="infected"></i><i></i><i></i><i></i><i></i><i class="recovered"></i><i></i><i></i><i class="infected"></i><i></i>
-          <i></i><i></i><i></i><i class="infected"></i><i></i><i></i><i></i><i></i><i class="recovered"></i><i></i><i></i>
-          <i class="recovered"></i><i></i><i></i><i></i><i class="infected"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="recovered"></i>
-          <i></i><i class="infected"></i><i></i><i></i><i></i><i class="recovered"></i><i></i><i></i><i></i><i></i><i></i><i></i>
-        </div>
-        <div class="visual-legend">
-          <span><i class="legend-swatch susceptible"></i> Susceptible</span>
-          <span><i class="legend-swatch infected-swatch"></i> Infected</span>
-          <span><i class="legend-swatch recovered-swatch"></i> Recovered</span>
-        </div>
-        <p class="visual-caption">Illustrative states · the project runs in the console</p>
-      </div>
-      <div class="hero-index" aria-hidden="true">01 <span> / 04</span></div>
+      <figure class="intro-image">
+        <img src="https://raw.githubusercontent.com/jasonbrandow9-pixel/COS1-Project/main/images/02-repository-overview.png" alt="Repository overview for the Virus Spread Lab course project">
+        <figcaption>Virus Spread Lab · project repository</figcaption>
+      </figure>
     </section>
 
-    <section class="project-section section-wrap" id="project">
-      <div class="section-heading">
-        <p class="eyebrow">THE PROJECT</p>
-        <h2>A classroom model<br>you can inspect.</h2>
+    <section class="content-section page-width two-column" id="about">
+      <div>
+        <p class="kicker">ABOUT</p>
+        <h2>Learning by making things work.</h2>
       </div>
-      <div class="project-intro">
-        <p>The program places people on a grid and advances the simulation one day at a time. Users can run an outbreak, compare illustrative transmission profiles, and read how the model’s rules work.</p>
-        <p class="caution"><span aria-hidden="true">ⓘ</span> This is a simplified classroom exercise, not medical advice, real-world data, or a clinical forecast.</p>
+      <div class="section-copy">
+        <p>I’m a computer science student at Full Sail University. I like projects where I can see how a small change in the code affects the result.</p>
+        <p>For Virus Spread Lab, I built a console simulation with separate classes for people, profiles, and the simulation itself. Along the way, I worked through an input-validation problem and a scope bug, then documented the fixes.</p>
+        <p class="goal"><strong>What I’m working toward:</strong> getting more comfortable with C++, debugging, and building programs that are organized and clear to use.</p>
       </div>
-      <div class="feature-grid">
-        <article class="feature-card">
-          <span class="card-number">01</span>
-          <h3>Watch each day unfold</h3>
-          <p>Follow susceptible, infected, recovered, and new-infection counts alongside a live grid view.</p>
-        </article>
-        <article class="feature-card">
-          <span class="card-number">02</span>
-          <h3>Compare scenarios</h3>
-          <p>Run three illustrative profiles with the same starting conditions and review the summaries.</p>
-        </article>
-        <article class="feature-card">
-          <span class="card-number">03</span>
-          <h3>Understand the rules</h3>
-          <p>Use the built-in help screen to explore transmission, recovery timing, and the model’s limits.</p>
-        </article>
+    </section>
+
+    <section class="content-section skills-section" id="skills">
+      <div class="page-width">
+        <p class="kicker">SKILLS &amp; TOOLS</p>
+        <h2>What I’ve been practicing</h2>
+        <div class="skills-grid">
+          <article>
+            <h3>C++ foundations</h3>
+            <p>Classes, enums, vectors, functions, loops, and standard-library random numbers.</p>
+          </article>
+          <article>
+            <h3>Input and debugging</h3>
+            <p>Line-based input with <code>std::getline</code> and <code>std::stoi</code>, range checks, and clear error messages.</p>
+          </article>
+          <article>
+            <h3>Project workflow</h3>
+            <p>Visual Studio, Git, GitHub branches and pull requests, Markdown, and milestone notes.</p>
+          </article>
+        </div>
       </div>
-      <div class="project-details">
+    </section>
+
+    <section class="content-section page-width" id="projects">
+      <p class="kicker">SELECTED PROJECT</p>
+      <div class="project-card">
+        <figure class="project-image">
+          <img src="https://raw.githubusercontent.com/jasonbrandow9-pixel/COS1-Project/main/images/01-project-board.png" alt="Planning board used to organize the Virus Spread Lab project">
+          <figcaption>Planning board from the project repository</figcaption>
+        </figure>
+        <div class="project-copy">
+          <p class="project-label">C++ · CONSOLE APPLICATION · COURSE PROJECT</p>
+          <h2>Virus Spread Lab</h2>
+          <p>A small educational simulation that places people on a grid and advances the model one day at a time. It reports susceptible, infected, recovered, and new-infection counts.</p>
+          <h3>What it includes</h3>
+          <ul>
+            <li>Three illustrative profiles for comparing transmission and recovery settings</li>
+            <li>A grid view, daily report, Quick Run, and profile comparison</li>
+            <li>Repeatable seeds and an optional text report</li>
+            <li>Input checks and a help screen explaining the model’s assumptions</li>
+          </ul>
+          <h3>One lesson from the work</h3>
+          <p>A replay-loop change exposed a scope error: settings were being used after the loop where they were created. I moved the related work into the correct scope and improved numeric input handling with <code>getline</code> and <code>stoi</code>.</p>
+          <p class="project-tools"><strong>Tools:</strong> C++, Visual Studio, Git, GitHub</p>
+          <div class="project-links">
+            <a class="button" href="https://github.com/jasonbrandow9-pixel/COS1-Project">View source repository</a>
+            <a class="text-link" href="demo.html">Try the browser preview <span aria-hidden="true">↗</span></a>
+          </div>
+          <p class="disclaimer">The browser preview demonstrates the same simplified rules; the original project is a C++ console program. The model is for classroom use and is not a medical forecast.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section page-width two-column" id="process">
+      <div>
+        <p class="kicker">HOW THE PROJECT GREW</p>
+        <h2>Four weeks of small improvements.</h2>
+      </div>
+      <div class="section-copy milestones">
+        <p><strong>Week 1</strong><span>Set up the solution, repository, and first console feature.</span></p>
+        <p><strong>Week 2</strong><span>Added Quick Run, repeatable seeds, report export, and clearer menus.</span></p>
+        <p><strong>Week 3</strong><span>Fixed the scope issue and improved input validation.</span></p>
+        <p><strong>Week 4</strong><span>Reviewed the program flow and finished the project documentation.</span></p>
+        <a class="text-link" href="https://github.com/jasonbrandow9-pixel/COS1-Project/tree/main/docs">Read the project notes <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div class="page-width contact-inner">
         <div>
-          <p class="eyebrow">HOW IT IS ORGANIZED</p>
-          <h3>Focused classes,<br>clear responsibilities.</h3>
+          <p class="kicker">CONTACT</p>
+          <h2>Thanks for stopping by.</h2>
+          <p>You can find my code and project updates on GitHub.</p>
         </div>
-        <div class="class-list">
-          <div><span class="class-name">Person</span><span>Tracks health state and infection age.</span></div>
-          <div><span class="class-name">VirusProfile</span><span>Stores the settings for each illustrative profile.</span></div>
-          <div><span class="class-name">Simulation</span><span>Manages the grid, daily steps, and results.</span></div>
+        <div class="contact-links">
+          <a class="button button-light" href="https://github.com/jasonbrandow9-pixel">Visit my GitHub profile</a>
+          <a class="text-link text-link-light" href="resume.html">Open my resume <span aria-hidden="true">↗</span></a>
         </div>
-      </div>
-    </section>
-
-    <section class="process-section" id="process">
-      <div class="section-wrap process-wrap">
-        <div class="section-heading">
-          <p class="eyebrow">BUILDING IN ITERATIONS</p>
-          <h2>Make a feature.<br>Learn from the fix.</h2>
-          <p class="section-description">The project grew through small milestones, with each pass improving the program and its documentation.</p>
-        </div>
-        <div class="timeline">
-          <article><span class="timeline-point"></span><p class="timeline-label">WEEK 01</p><h3>Set the foundation</h3><p>Created the Visual Studio solution, repository, and initial console feature.</p></article>
-          <article><span class="timeline-point"></span><p class="timeline-label">WEEK 02</p><h3>Add useful controls</h3><p>Added Quick Run, repeatable seeds, report export, and clearer input handling.</p></article>
-          <article><span class="timeline-point"></span><p class="timeline-label">WEEK 03</p><h3>Refine the structure</h3><p>Fixed a scope issue, strengthened numeric validation, and clarified profile access.</p></article>
-          <article><span class="timeline-point"></span><p class="timeline-label">WEEK 04</p><h3>Review and document</h3><p>Completed a final pass on simulation flow, usability, and project notes.</p></article>
-        </div>
-        <div class="artifacts">
-          <figure>
-            <img src="images/01-project-board.png" alt="Project planning board screenshot from the repository">
-            <figcaption>Project planning board</figcaption>
-          </figure>
-          <figure>
-            <img src="images/02-repository-overview.png" alt="Repository overview screenshot">
-            <figcaption>Repository structure and progress</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="documentation-section section-wrap" id="documentation">
-      <div class="section-heading">
-        <p class="eyebrow">PROJECT NOTES</p>
-        <h2>Follow the work<br>from plan to finish.</h2>
-      </div>
-      <div class="document-list">
-        <a href="https://github.com/jasonbrandow9-pixel/COS1-Project/blob/main/docs/JBrandow-ProjectPlan.md"><span><small>01 · PLANNING</small><strong>Project plan</strong></span><span class="document-arrow" aria-hidden="true">↗</span></a>
-        <a href="https://github.com/jasonbrandow9-pixel/COS1-Project/blob/main/docs/Milestone3.md"><span><small>02 · DEVELOPMENT</small><strong>Milestone 3 notes</strong></span><span class="document-arrow" aria-hidden="true">↗</span></a>
-        <a href="https://github.com/jasonbrandow9-pixel/COS1-Project/blob/main/docs/Milestone4.md"><span><small>03 · FINAL REVIEW</small><strong>Milestone 4 notes</strong></span><span class="document-arrow" aria-hidden="true">↗</span></a>
-        <a href="https://github.com/jasonbrandow9-pixel/COS1-Project/blob/main/dev/COS1-Console/README.md"><span><small>04 · GET STARTED</small><strong>Build and run the program</strong></span><span class="document-arrow" aria-hidden="true">↗</span></a>
-      </div>
-      <div class="closing-card">
-        <div><p class="eyebrow">SOURCE &amp; PROJECT HISTORY</p><h3>Explore the code<br>and the decisions behind it.</h3></div>
-        <a class="button button-light" href="https://github.com/jasonbrandow9-pixel/COS1-Project">Open the GitHub repository <span aria-hidden="true">↗</span></a>
       </div>
     </section>
   </main>
-
-  <footer class="site-footer section-wrap">
-    <span>Jason Brandow <span class="footer-dot">·</span> COS1 Project &amp; Portfolio I</span>
+  <footer class="site-footer page-width">
+    <span>Jason Brandow · Full Sail University</span>
     <a href="#top">Back to top ↑</a>
   </footer>
 </body>
